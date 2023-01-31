@@ -1,4 +1,7 @@
 a = 1
 b = 2
-c = 3
-d = 4
+buf = a
+a = b
+b = buf
+
+print("a:", a, "b:", b)
