@@ -1,3 +1,3 @@
-print("test .gitignore")
-test = 1
-input = ("task: ")
+a = 1
+b = 2
+c =
