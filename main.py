@@ -1,7 +1,4 @@
 a = 1
 b = 2
-buf = a
-a = b
-b = buf
-
+a, b = b, a
 print("a:", a, "b:", b)
