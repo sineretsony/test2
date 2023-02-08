@@ -1,11 +1,11 @@
 year = int(input("Введіть рік у форматі РРРР: "))
 
-y1 = year // 100
-y11 = year % 100
+year_di = year // 100
+year_trig = year % 100
 
-if y11 > 0:
-    yy = y1 + 1
-    print(f"Рік  відноситься до {yy} ст.")
-elif y11 == 0:
-    print(f"Этот год {year} відноситься до {y1} ст.")
+if year_trig > 0:
+    year_align = year_di + 1
+    print(f"Рік  відноситься до {year_align} ст.")
+elif year_trig == 0:
+    print(f"Этот год {year} відноситься до {year_di} ст.")
 
