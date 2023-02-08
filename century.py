@@ -7,5 +7,5 @@ if year_trig > 0:
     year_align = year_di + 1
     print(f"Рік  відноситься до {year_align} ст.")
 elif year_trig == 0:
-    print(f"Этот год {year} відноситься до {year_di} ст.")
+    print(f"Цей рік {year} відноситься до {year_di} ст.")
 
