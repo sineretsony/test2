@@ -1,7 +1,9 @@
 word = input("Введіть будь ласка слово: ")
+
 num_l = len(word)
 par = num_l // 2
 rem = num_l % 2
+
 if rem == 0:
     l1 = par + 1
     rem = par - 1
