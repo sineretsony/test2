@@ -31,10 +31,10 @@ while True:
 
 # result
 num_ave = num_sum / num_qua
-print(f"Кількість введених чисел {num_qua}\n"
-      f"Сума введених чисел {num_sum}\n"
-      "Середнє арифметичне", round(num_ave), "\n"
-      f"Мінімальне значення {num_min}\n"
-      f"Максимальне значення {num_max}\n"
-      f"Парних {nu_pair}\n"
-      f"Непарних {num_unp}")
+print(f"Кількість введених чисел: {num_qua}\n"
+      f"Сума введених чисел: {num_sum}\n"
+      "Середнє арифметичне:", round(num_ave), "\n"
+      f"Мінімальне значення: {num_min}\n"
+      f"Максимальне значення: {num_max}\n"
+      f"Парних: {nu_pair}\n"
+      f"Непарних: {num_unp}")
