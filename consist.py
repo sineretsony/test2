@@ -12,7 +12,7 @@ num_unp = 0
 # cycle
 while True:
     num_imp = int(input(": "))
-    if num_imp < 1:
+    if num_imp == 0:
         break
     num_qua += 1
     num_sum += num_imp
