@@ -9,12 +9,15 @@ else:
     phrase = "hello hill house horse"
 
 # Finding and replacing the symbol H
-space1 = phrase.find(" ")
-space2 = phrase.rfind(" ")
-search1 = phrase.find("h", space1)
-search2 = phrase.find("h", space2)
-slice_im = phrase[search1:search2]
+num_len = len(phrase)
+search1 = phrase.find("h")
+search2 = phrase.rfind("h")
+ed = search1 + 1
+slice_im = phrase[ed:search2]
 replacement1 = slice_im.replace("h", "H")
-result = phrase.replace(slice_im, replacement1)
+bas = 0
+on_slic = phrase[bas:ed]
+th_slic = phrase[search2:num_len]
+result = on_slic + replacement1 + th_slic
 
 print(result)
