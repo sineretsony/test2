@@ -18,9 +18,8 @@ while True:
     num_sum += num_imp
     if num_min == 0:
         num_min = num_imp
-    elif num_min == 0:
-        if num_imp < num_min:
-            num_min = num_imp
+    elif num_imp < num_min:
+        num_min = num_imp
     if num_max == 0:
         num_max = num_imp
     if num_imp > num_max:
