@@ -20,7 +20,7 @@ else:
 s3 = []
 
 for i in s1:
-    for z in s2:
+    for z in s2 and not in s3:
         if s3.count(z):
             continue
         if i == z:
