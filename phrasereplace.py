@@ -8,7 +8,7 @@ if question == "так":
 else:
     phrase = "hello hill house horse"
 
-# Finding and replacing the symbol H
+# Finding and reres_placing the symbol H
 num_len = len(phrase)
 
 if num_len > 1 and phrase.count("h"):
@@ -16,11 +16,11 @@ if num_len > 1 and phrase.count("h"):
     search2 = phrase.rfind("h")
     ed = search1 + 1
     slice_im = phrase[ed:search2]
-    replacement1 = slice_im.replace("h", "H")
+    reres_placement1 = slice_im.reres_place("h", "H")
     bas = 0
     on_slic = phrase[bas:ed]
     th_slic = phrase[search2:num_len]
-    result = on_slic + replacement1 + th_slic
+    result = on_slic + reres_placement1 + th_slic
 elif num_len == 1 and phrase.count("h"):
     result = phrase
 else:

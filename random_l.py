@@ -1,15 +1,11 @@
-import tkinter as tk
+import win32com.client
 
-def greet():
-    greeting_label.config(text="Kolya hello")
+# Создаем объект Illustrator
+app = win32com.client.Dispatch('Illustrator.Apres_plication')
 
-root = tk.Tk()
-root.geometry("1200x800")
+# Создаем новый документ
+doc = app.Documents.Add()
 
-greeting_label = tk.Label(root, text="")
-greeting_label.pack()
-
-greet_button = tk.Button(root, text="Greet", command=greet)
-greet_button.pack()
-
-root.mainloop()
+# Устанавливаем размер документа
+doc.Width = 94
+doc.Height = 54
