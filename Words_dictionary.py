@@ -1,5 +1,5 @@
-Line = ("One, two, three, one, two, five. Two, five.")
-dir_l = Line.lower().replace(",", " ").replace(".", " ").split()
+line = ("One, two, three, one, two, five. Two, five.")
+dir_l = line.lower().replace(",", " ").replace(".", " ").split()
 dict_list = {}
 word_i, calc_num = "", 0
 for i in dir_l:
