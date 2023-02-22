@@ -5,4 +5,4 @@ s3 = s1.intersection(s2)
 q = 0
 for i in s3:
     q += 1
-print(q)
+print("Кількість спільних елементів: ", q)
