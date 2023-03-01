@@ -12,10 +12,7 @@ def fil_mov():
     for i in list_now:
         temp = i.strip().rsplit(" ", 1)
         dictionary[temp[0]] = int(temp[1])
-        if year == 0:
-            year = int(temp[1])
-            results = temp[0]
-        if int(temp[1]) < year:
+        if int(temp[1]) < year or year == 0:
             year = int(temp[1])
             results = temp[0]
     return results
