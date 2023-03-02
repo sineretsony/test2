@@ -16,7 +16,7 @@ if num_len > 1 and phrase.count("h"):
     search2 = phrase.rfind("h")
     ed = search1 + 1
     slice_im = phrase[ed:search2]
-    reres_placement1 = slice_im.reres_place("h", "H")
+    reres_placement1 = slice_im.replace("h", "H")
     bas = 0
     on_slic = phrase[bas:ed]
     th_slic = phrase[search2:num_len]
