@@ -52,11 +52,11 @@ def convert_folder():
 root = tk.Tk()
 root.geometry('190x220')
 root.resizable(False, False)
-root.title('Linsh')
+root.title('KGP')
 
 path_var = tk.StringVar()
-psd_var = tk.BooleanVar()
-ai_var = tk.BooleanVar()
+psd_var = tk.BooleanVar(value=True)
+ai_var = tk.BooleanVar(value=True)
 count_var = tk.StringVar()
 
 psd_checkbox = tk.Checkbutton(root, text='PSD', variable=psd_var)
