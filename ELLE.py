@@ -74,7 +74,7 @@ convert_button.place(x=115, y=110)
 count_label = tk.Label(root, textvariable=count_var)
 count_label.place(x=90, y=170, relwidth=1, anchor='center')
 
-footer_label = tk.Label(root, text="Made by Gregoire for Printoriny 2023", font=('Arial', 7))
+footer_label = tk.Label(root, text="Made by Gregoire 2023", font=('Arial', 7))
 footer_label.pack(side=tk.BOTTOM, pady=5)
 
 info_label = tk.Label(root, text="Choose a format, folder \nand start the conversion", font=('Arial', 9))
