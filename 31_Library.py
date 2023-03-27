@@ -10,29 +10,19 @@ class Author:
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.birth_date})"
 
-    def to_dict(self):
-        return {
-            "first_name": self.first_name,
-            "last_name": self.last_name,
-            "birth_date": self.birth_date
-        }
-
 
 class Book:
     def __init__(self, title, author, publication_year):
         self.title = title
-        self.author = author
+        self.author_first_name = author.first_name
+        self.author_last_name = author.last_name
+        self.author_birth_date = author.birth_date
         self.publication_year = publication_year
 
     def __str__(self):
-        return f"{self.title} {self.author} ({self.publication_year})"
-
-    def to_dict(self):
-        return {
-            "title": self.title,
-            "author": self.author.to_dict(),
-            "publication_year": self.publication_year
-        }
+        return f"{self.title} {self.author_first_name} " \
+               f"{self.author_last_name} " \
+               f"({self.publication_year})"
 
 
 class Library:
@@ -42,10 +32,20 @@ class Library:
     def add_book(self, book):
         self.library.append(book)
 
+    def remove_book(self, book):
+        self.library.remove(book)
+
     def dump_to_json(self, filename):
         with open(filename, "w", encoding="utf-8") as f:
-            json.dump([book.to_dict() for book in self.library],
-                      f, indent=4, ensure_ascii=False)
+            json.dump([{
+                "title": book.title,
+                "author": {
+                    "first_name": book.author_first_name,
+                    "last_name": book.author_last_name,
+                    "birth_date": book.author_birth_date
+                },
+                "publication_year": book.publication_year
+            } for book in self.library], f, indent=4, ensure_ascii=False)
 
     def __str__(self):
         return "\n".join(str(book) for book in self.library)
@@ -62,6 +62,9 @@ library = Library()
 library.add_book(book1)
 library.add_book(book2)
 library.add_book(book3)
+# library.remove_book(book1)
+
 
 print(library)
 library.dump_to_json("library.json")
+
