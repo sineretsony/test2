@@ -14,14 +14,12 @@ class Author:
 class Book:
     def __init__(self, title, author, publication_year):
         self.title = title
-        self.author_first_name = author.first_name
-        self.author_last_name = author.last_name
-        self.author_birth_date = author.birth_date
+        self.author = author
         self.publication_year = publication_year
 
     def __str__(self):
-        return f"{self.title} {self.author_first_name} " \
-               f"{self.author_last_name} " \
+        return f"{self.title} {self.author.first_name} " \
+               f"{self.author.last_name} " \
                f"({self.publication_year})"
 
 
@@ -40,9 +38,9 @@ class Library:
             json.dump([{
                 "title": book.title,
                 "author": {
-                    "first_name": book.author_first_name,
-                    "last_name": book.author_last_name,
-                    "birth_date": book.author_birth_date
+                    "first_name": book.author.first_name,
+                    "last_name": book.author.last_name,
+                    "birth_date": book.author.birth_date
                 },
                 "publication_year": book.publication_year
             } for book in self.library], f, indent=4, ensure_ascii=False)
@@ -67,4 +65,3 @@ library.add_book(book3)
 
 print(library)
 library.dump_to_json("library.json")
-
