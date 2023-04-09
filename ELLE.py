@@ -42,10 +42,10 @@ def caesar_decrypt_from_file():
                 slice_2 += 9
             result += chr((ord(k) - (slice_1 + slice_2)) % 256)
         if len(result) != 10:
-            return '22.02.2020'
+            return '22.01.1900'
         return result
     else:
-        return '22.02.2020'
+        return '22.01.1900'
 
 
 def register_window():
