@@ -11,19 +11,10 @@ def browse_folder():
     count = 0
     folder_path = filedialog.askdirectory()
     if folder_path:
+        # browse_button.config(state=tk.NORMAL)
         convert_button.config(state=tk.NORMAL)
         fast_ai.config(state=tk.NORMAL)
         path_var.set(folder_path)
-
-
-def fast_ai_conversion():
-    folder_path = path_var.get()
-    if os.path.exists(folder_path):
-        os.chdir(folder_path)
-        command = "ren *.ai *.pdf"
-        result = subprocess.run(command, shell=True)
-        count = len([f for f in os.listdir(folder_path) if f.endswith('.pdf')])
-        window_results()
 
 
 def convert_folder():
@@ -55,6 +46,16 @@ def convert_folder():
     window_results()
 
 
+def fast_ai_conversion():
+    folder_path = path_var.get()
+    if os.path.exists(folder_path):
+        os.chdir(folder_path)
+        command = "ren *.ai *.pdf"
+        result = subprocess.run(command, shell=True)
+        count = len([f for f in os.listdir(folder_path) if f.endswith('.pdf')])
+        window_results()
+
+
 def window_results():
     result_window = tk.Toplevel(root)
     result_window.title('result')
@@ -80,7 +81,7 @@ def window_results():
               command=result_window.destroy).pack()
 
 
-color = '#FFFFFF'
+color = '#1A1524'
 text_color = '#000000'
 font, size = 'Arial', 9
 
@@ -89,7 +90,9 @@ root.geometry('190x220')
 root.resizable(False, False)
 root.title('Guinea conv')
 root.attributes('-toolwindow', True)
-root.configure(bg=color)
+root.tk_setPalette(background=color)
+root.configure(bg=color, highlightbackground=color, highlightcolor=color)
+
 
 path_var = tk.StringVar()
 psd_var = tk.BooleanVar(value=True)
@@ -115,7 +118,7 @@ convert_button = tk.Button(root, text='Start', font=(font, size, 'bold'),
 convert_button.place(x=102, y=85)
 
 fast_ai = tk.Button(root, text='FAST CONV AI', font=(font, size, 'bold'),
-                    fg='#CD00D8', bg=color, state=tk.DISABLED, width=17,
+                    fg='#000DFF', bg=color, state=tk.DISABLED, width=17,
                     height=2, command=fast_ai_conversion)
 fast_ai.place(x=32, y=135)
 
