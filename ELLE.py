@@ -139,7 +139,7 @@ font, size = 'Arial', 9
 root = tk.Tk()
 root.geometry('190x220')
 root.resizable(False, False)
-root.title('Guinea conv')
+root.title('ufo conv')
 root.attributes('-toolwindow', True)
 root.tk_setPalette(background=color)
 root.configure(bg=color, highlightbackground=color, highlightcolor=color)
