@@ -1,5 +1,5 @@
 # Исходная дата
-date = '10.04.2024'
+date = '10.04.2100'
 
 # Ключ шифрования
 key = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tempor ' \
