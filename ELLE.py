@@ -4,6 +4,7 @@ from tkinter import filedialog
 from psd_tools import PSDImage
 import os
 import shutil
+from datetime import datetime
 
 
 def browse_folder():
@@ -11,10 +12,60 @@ def browse_folder():
     count = 0
     folder_path = filedialog.askdirectory()
     if folder_path:
-        # browse_button.config(state=tk.NORMAL)
         convert_button.config(state=tk.NORMAL)
         fast_ai.config(state=tk.NORMAL)
         path_var.set(folder_path)
+
+
+def is_date_valid(date_str, button, button2):
+    date = datetime.strptime(date_str, '%d.%m.%Y')
+    if date > datetime.now():
+        button.configure(state=tk.NORMAL)
+        button2.configure(state=tk.DISABLED)
+    else:
+        button.configure(state=tk.DISABLED)
+        button2.configure(state=tk.NORMAL)
+
+
+def caesar_decrypt_from_file():
+    if os.path.isfile('bin.txt') and os.path.getsize('bin.txt') > 0:
+        with open('bin.txt', 'r') as file:
+            data = file.read()
+        slice_1 = 0
+        slice_2 = 9
+        result = ""
+        count = 0
+        for k in data:
+            count += 1
+            if count == 3 or count == 7:
+                slice_1 += 9
+                slice_2 += 9
+            result += chr((ord(k) - (slice_1 + slice_2)) % 256)
+        if len(result) != 10:
+            return '22.02.2020'
+        return result
+    else:
+        return '22.02.2020'
+
+
+def register_window():
+    def register():
+        text = entry.get()
+        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                               'bin.txt'), 'w') as file:
+            file.write(text)
+        root.destroy()
+
+    root = tk.Tk()
+    root.geometry('200x50')
+
+    entry = tk.Entry(root, width=20)
+    entry.pack(pady=5)
+
+    button = tk.Button(root, text='Save to file', command=register)
+    button.pack()
+
+    root.mainloop()
 
 
 def convert_folder():
@@ -81,7 +132,7 @@ def window_results():
               command=result_window.destroy).pack()
 
 
-color = '#1A1524'
+color = '#ffffff'
 text_color = '#000000'
 font, size = 'Arial', 9
 
@@ -93,6 +144,16 @@ root.attributes('-toolwindow', True)
 root.tk_setPalette(background=color)
 root.configure(bg=color, highlightbackground=color, highlightcolor=color)
 
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+
+window_width = root.winfo_reqwidth()
+window_height = root.winfo_reqheight()
+
+center_x = int(screen_width / 4)
+center_y = int(screen_height / 4)
+
+root.geometry(f'+{center_x}+{center_y}')
 
 path_var = tk.StringVar()
 psd_var = tk.BooleanVar(value=True)
@@ -108,7 +169,7 @@ psd_checkbox.place(x=102, y=50)
 ai_checkbox.place(x=28, y=50)
 
 browse_button = tk.Button(root, text='Open', font=(font, size, 'bold'),
-                          fg='#007015', bg=color, width=7,
+                          fg='#007015', bg=color, state=tk.DISABLED, width=7,
                           height=2, command=browse_folder)
 browse_button.place(x=32, y=85)
 
@@ -117,10 +178,15 @@ convert_button = tk.Button(root, text='Start', font=(font, size, 'bold'),
                            height=2, command=convert_folder)
 convert_button.place(x=102, y=85)
 
-fast_ai = tk.Button(root, text='FAST CONV AI', font=(font, size, 'bold'),
-                    fg='#000DFF', bg=color, state=tk.DISABLED, width=17,
+fast_ai = tk.Button(root, text='FAST AI', font=(font, size, 'bold'),
+                    fg='#000DFF', bg=color, state=tk.DISABLED, width=7,
                     height=2, command=fast_ai_conversion)
 fast_ai.place(x=32, y=135)
+
+license_button = tk.Button(root, text='License', font=(font, size, 'bold'),
+                           fg='#A32E00', bg=color, width=7,
+                           height=2, command=register_window)
+license_button.place(x=102, y=135)
 
 info_label = tk.Label(root, text="Choose a format, folder \n "
                                  "and start the conversion",
@@ -131,4 +197,5 @@ footer_label = tk.Label(root, text="Made by Gregoire 2023",
                         fg=text_color, bg=color, font=(font, 7))
 footer_label.pack(side=tk.BOTTOM, pady=5)
 
+is_date_valid(caesar_decrypt_from_file(), browse_button, license_button)
 root.mainloop()

@@ -1,19 +1,44 @@
-import os
-from tkinter import *
-from tkinter import filedialog
+# Исходная дата
+date = '10.04.2024'
 
-root = Tk()
-root.withdraw()
+# Ключ шифрования
+key = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tempor ' \
+      'at ex in pharetra. Etiam a elit at ex pharetra semper.'
 
-# выбираем папку, в которой находятся файлы
-folder_selected = filedialog.askdirectory()
 
-# получаем название папки
-folder_name = os.path.basename(folder_selected)
+# Функция для шифрования
+def caesar(n):
+    temp = ""
+    slice_1 = 0
+    slice_2 = 9
+    count = 0
+    for i in n:
+        count += 1
+        if count == 3 or count == 7:
+            slice_1 += 9
+            slice_2 += 9
+        temp += chr((ord(i) + (slice_1 + slice_2)) % 256)
+    return temp
 
-# создаем текстовый документ с названием папки
-with open(folder_name + ".txt", "w") as file:
 
-    # считываем названия файлов и записываем их в текстовый документ
-    for filename in os.listdir(folder_selected):
-        file.write(filename + "\n")
+z = caesar(date)
+print(z)
+
+
+def caesar_decrypt(s):
+    slice_1 = 0
+    slice_2 = 9
+    result = ""
+    count = 0
+    for i in s:
+        count += 1
+        if count == 3 or count == 7:
+            slice_1 += 9
+            slice_2 += 9
+        result += chr((ord(i) - (slice_1 + slice_2)) % 256)
+    return result
+
+
+print(caesar_decrypt(z))
+
+
