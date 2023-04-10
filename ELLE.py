@@ -28,32 +28,40 @@ def is_date_valid(date_str, button, button2):
 
 
 def caesar_decrypt_from_file():
-    if os.path.isfile('bin.txt') and os.path.getsize('bin.txt') > 0:
-        with open('bin.txt', 'r') as file:
-            data = file.read()
-        slice_1 = 0
-        slice_2 = 9
-        result = ""
-        count = 0
-        for k in data:
-            count += 1
-            if count == 3 or count == 7:
-                slice_1 += 9
-                slice_2 += 9
-            result += chr((ord(k) - (slice_1 + slice_2)) % 256)
-        if len(result) != 10:
+        filename = 'data.sh'
+        if os.path.isfile(filename) and os.path.getsize(filename) > 0:
+            created_time = datetime.fromtimestamp(
+                os.path.getctime(filename)).date()
+            modified_time = datetime.fromtimestamp(
+                os.path.getmtime(filename)).date()
+            if created_time != modified_time:
+                return '22.01.1900'
+            with open(filename, 'rb') as file:
+                data = file.read()
+                decoded_data = data.decode('utf-8')
+            slice_1 = 0
+            slice_2 = 9
+            result = ""
+            count = 0
+            for k in decoded_data:
+                count += 1
+                if count == 3 or count == 7:
+                    slice_1 += 9
+                    slice_2 += 9
+                result += chr((ord(k) - (slice_1 + slice_2)) % 256)
+            if len(result) != 10:
+                return '22.01.1900'
+            return result
+        else:
             return '22.01.1900'
-        return result
-    else:
-        return '22.01.1900'
 
 
 def register_window():
     def register():
         text = entry.get()
         with open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                               'bin.txt'), 'w') as file:
-            file.write(text)
+                               'data.sh'), 'wb') as file:
+            file.write(text.encode('utf-8'))
         root.destroy()
 
     root = tk.Tk()
