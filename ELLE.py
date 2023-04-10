@@ -28,7 +28,7 @@ def is_date_valid(date_str, button, button2):
 
 
 def caesar_decrypt_from_file():
-        filename = 'data.sh'
+        filename = 'data.pxd'
         if os.path.isfile(filename) and os.path.getsize(filename) > 0:
             created_time = datetime.fromtimestamp(
                 os.path.getctime(filename)).date()
@@ -60,7 +60,7 @@ def register_window():
     def register():
         text = entry.get()
         with open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                               'data.sh'), 'wb') as file:
+                               'data.pxd'), 'wb') as file:
             file.write(text.encode('utf-8'))
         root.destroy()
 
@@ -147,7 +147,7 @@ font, size = 'Arial', 9
 root = tk.Tk()
 root.geometry('190x220')
 root.resizable(False, False)
-root.title('ufo conv')
+root.title('UFO conv')
 root.attributes('-toolwindow', True)
 root.tk_setPalette(background=color)
 root.configure(bg=color, highlightbackground=color, highlightcolor=color)
