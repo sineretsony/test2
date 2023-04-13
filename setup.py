@@ -9,8 +9,8 @@ if sys.platform == 'win32':
 setup(name='ELLE',
       version='1.0',
       description='Covert files ADS and AI in PDF',
-      options={'build_exe': {'packages': [], 'include_files': ['UFO2.ico']}},
-      executables=[Executable('ELLE.py', base=base, icon='UFO2.ico')],
+      options={'build_exe': {'packages': [], 'include_files': ['Customization.ico']}},
+      executables=[Executable('ELLE.py', base=base, icon='Customization.ico')],
       target='cx_Freeze')
 
 #python setup.py build
