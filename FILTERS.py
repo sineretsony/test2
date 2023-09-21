@@ -4,22 +4,30 @@ import tkinter as tk
 from tkinter import filedialog
 from pathlib import Path
 
+
 def get_last_number_in_name(name):
     parts = name.split()
+    last_number = None
     for part in reversed(parts):
-        if part.isdigit():
-            return int(part)
+        if any(char.isdigit() for char in part):
+            last_number = part
+            break
+    if last_number:
+        return int(''.join(filter(str.isdigit, last_number)))
     return 0
+
 
 def browse_source_path():
     global path1
     path1 = Path(filedialog.askdirectory())
     source_path_var.set(path1)
 
+
 def browse_destination_path():
     global path2
     path2 = Path(filedialog.askdirectory())
     destination_path_var.set(path2)
+
 
 def copy_files():
     file_dict = {}
@@ -36,12 +44,11 @@ def copy_files():
         destination_filepath = path2 / new_filename
         shutil.copy(source_filepath, destination_filepath)
 
+
 app = tk.Tk()
 app.geometry('190x220')
 app.resizable(False, False)
-app.title('UFO conv')
 app.attributes('-toolwindow', True)
-app.title("File Copy Utility")
 app.title("File Copy Utility")
 
 path1 = ""  # Source path
@@ -65,7 +72,8 @@ destination_label.pack()
 destination_entry = tk.Entry(app, textvariable=destination_path_var)
 destination_entry.pack()
 
-destination_button = tk.Button(app, text="Browse", command=browse_destination_path)
+destination_button = tk.Button(app, text="Browse",
+                               command=browse_destination_path)
 destination_button.pack()
 
 copy_button = tk.Button(app, text="Copy Files", command=copy_files)
