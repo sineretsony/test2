@@ -7,16 +7,19 @@ window.geometry('250x250')
 
 data_dict = {}
 
+
 def print_message(message):
     output_text.insert(tk.END, message + '\n')
     output_text.see(tk.END)
+
 
 def play_button_clicked():
     input_folder_path = input_folder.get()
     output_folder_path = output_folder.get()
     file_path = file_var.get()
 
-    if not os.path.exists(input_folder_path) or not os.path.exists(output_folder_path) or not os.path.exists(file_path):
+    if not os.path.exists(input_folder_path) or not os.path.exists(
+            output_folder_path) or not os.path.exists(file_path):
         print_message("Выберите корректные пути к файлам и папкам!")
         return
 
@@ -34,6 +37,7 @@ def play_button_clicked():
 
     process_files(input_folder_path, output_folder_path)
 
+
 def process_files(input_folder_path, output_folder_path):
     if not os.path.exists(output_folder_path):
         os.makedirs(output_folder_path)
@@ -44,36 +48,45 @@ def process_files(input_folder_path, output_folder_path):
         file_name, file_ext = os.path.splitext(filename)
         file_name = file_name.upper()
         if file_name in data_dict and data_dict[file_name] != 0:
-            new_file_name = str(data_dict[file_name]) + '_' + file_name + file_ext
+            new_file_name = str(
+                data_dict[file_name]) + '_' + file_name + file_ext
             output_path = os.path.join(output_folder_path, new_file_name)
-            with open(input_path, 'rb') as input_file, open(output_path, 'wb') as output_file:
+            with open(input_path, 'rb') as input_file, open(output_path,
+                                                            'wb') as output_file:
                 output_file.write(input_file.read())
 
     print_message("Готово")
     print_message("Кол-во макетов: " + str(len(data_dict)))
     print_message("Сумма колличества: " + str(sum(data_dict.values())))
 
+
 def select_input_folder():
     folder_path = filedialog.askdirectory()
     input_folder.set(folder_path)
+
 
 def select_output_folder():
     folder_path = filedialog.askdirectory()
     output_folder.set(folder_path)
 
+
 def select_file():
     file_path = filedialog.askopenfilename()
     file_var.set(file_path)
+
 
 input_folder = tk.StringVar()
 output_folder = tk.StringVar()
 file_var = tk.StringVar()
 
-input_button = tk.Button(window, text="Выбрать путь к макетам", command=select_input_folder)
+input_button = tk.Button(window, text="Выбрать путь к макетам",
+                         command=select_input_folder)
 input_button.pack()
-output_button = tk.Button(window, text="Выбрать конечную папку", command=select_output_folder)
+output_button = tk.Button(window, text="Выбрать конечную папку",
+                          command=select_output_folder)
 output_button.pack()
-file_button = tk.Button(window, text="Файл txt информационный", command=select_file)
+file_button = tk.Button(window, text="Файл txt информационный",
+                        command=select_file)
 file_button.pack()
 play_button = tk.Button(window, text="Play", command=play_button_clicked)
 play_button.pack()
