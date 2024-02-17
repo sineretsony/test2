@@ -1,28 +1,23 @@
-import PyPDF2
+import fitz  # PyMuPDF
 
 # Путь к исходному PDF-файлу
 input_pdf_path = r"C:\Users\gorea\Desktop\Новая папка\file.pdf"
 
-# Открываем PDF-файл для чтения
-with open(input_pdf_path, "rb") as input_pdf_file:
-    pdf_reader = PyPDF2.PdfReader(input_pdf_file)
+# Открываем PDF-файл
+pdf_document = fitz.open(input_pdf_path)
 
-    # Создаем объект для записи измененного PDF-файла
-    output_pdf = PyPDF2.PdfWriter()
+# Получаем первую страницу
+page = pdf_document[0]
 
-    # Копируем содержимое исходного файла в новый файл
-    for page_num in range(len(pdf_reader.pages)):
-        page = pdf_reader.pages[page_num]
-        # Делаем небольшое смещение
-        upper_right_x, upper_right_y = page.mediabox.upper_right
-        page.mediabox.upper_right = (upper_right_x - 1, upper_right_y)
-        output_pdf.add_page(page)
+# Добавляем прямоугольник 1x1 пиксель белого цвета в левом верхнем углу
+rect = fitz.Rect(0, page.rect.height, 1, page.rect.height - 1)  # x0, y0, x1, y1
+page.draw_rect(rect, fill=(1, 1, 1))  # fill=(R, G, B)
 
-    # Путь для сохранения измененного файла
-    output_pdf_path = r"C:\Users\gorea\Desktop\Новая папка\file_with_offset.pdf"
+# Сохраняем изменения
+output_pdf_path = r"C:\Users\gorea\Desktop\Новая папка\file_with_pixel.pdf"
+pdf_document.save(output_pdf_path)
 
-    # Открываем файл для записи
-    with open(output_pdf_path, "wb") as output_pdf_file:
-        output_pdf.write(output_pdf_file)
+# Закрываем PDF-файл
+pdf_document.close()
 
-print("Выполнено небольшое смещение первой страницы в PDF-файле.")
+print("Добавлена точка 1x1 пиксель белого цвета в левый верхний угол первой страницы PDF-файла.")
