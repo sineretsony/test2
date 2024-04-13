@@ -1,25 +1,27 @@
-import fitz  # PyMuPDF
+from PyPDF2 import PdfReader, PdfWriter
 
-# Путь к исходному PDF-файлу
+# Path to the input PDF file
 input_pdf_path = r"C:\Users\gorea\Desktop\Новая папка\file.pdf"
 
-# Открываем PDF-файл
-pdf_document = fitz.open(input_pdf_path)
+# Path to save the modified PDF file
+output_pdf_path = r"C:\Users\gorea\Desktop\Новая папка\file_with_pixel.pdf"
 
-# Получаем первую страницу
-page = pdf_document[0]
+# Open the existing PDF file
+with open(input_pdf_path, "rb") as file:
+    pdf_reader = PdfReader(file)
+    pdf_writer = PdfWriter()
 
-# Добавляем текст "2347" красным цветом в левый верхний угол
-text = "2347"
-font_size = 24
-font_color = (1, 0, 0)  # Красный цвет
-page.insert_text((10, 10), text, fontsize=font_size, color=font_color)
+    # Get the first page
+    page = pdf_reader.pages[0]
 
-# Сохраняем изменения
-output_pdf_path = r"C:\Users\gorea\Desktop\Новая папка\file_with_text.pdf"
-pdf_document.save(output_pdf_path)
+    # Create a new page with a 1x1 white pixel in the top left corner
+    page.mediabox.upper_right = (1, 1)
 
-# Закрываем PDF-файл
-pdf_document.close()
+    # Add the modified page to the PDF file
+    pdf_writer.add_page(page)
 
-print("Добавлен текст '2347' красным цветом в левый верхний угол первой страницы PDF-файла.")
+    # Save the changes to a new PDF file
+    with open(output_pdf_path, "wb") as output_file:
+        pdf_writer.write(output_file)
+
+print("Added a 1x1 white pixel in the top left corner of the first page of the PDF file.")

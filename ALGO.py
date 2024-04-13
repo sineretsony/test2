@@ -1,24 +1,23 @@
-import json
 import tkinter as tk
 from tkinter import ttk
 
-file_path = 'base.json'
+file_path = 'base.txt'  # Updated file path for text file
 new_data = {'KONIKA c6085 4+0': 'c6085 4+0'}
-
 
 def start_app(f_path):
     try:
-        with open(f_path, 'r') as file:
-            data = json.load(file)
+        with open(f_path, 'r', encoding='utf-8') as file:
+            data = file.readlines()  # Read lines from text file
+            data = {line.strip().split('=')[0]: line.strip().split('=')[1] for line in data}  # Convert to dictionary
     except FileNotFoundError:
         data = {}
     return data
 
-
 def save_new_data(data, n_data):
     data.update(n_data)
-    with open(file_path, 'w') as file:
-        json.dump(data, file, indent=4)
+    with open(file_path, 'w', encoding='utf-8') as file:
+        for key, value in data.items():
+            file.write(f"{key}={value}\n")
 
 
 def generate_name(a, b):
