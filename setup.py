@@ -3,14 +3,15 @@ from cx_Freeze import setup, Executable
 
 base = None
 
-if sys.platform == 'win32':
-    base = 'Win32GUI'
+# # отключаем окно терминала
+# if sys.platform == 'win32':
+#     base = 'Win32GUI'
 
-setup(name='ELLE',
+setup(name='BARCODEKS.py',
       version='1.0',
-      description='Covert files ADS and AI in PDF',
-      options={'build_exe': {'packages': [], 'include_files': ['Customization.ico']}},
-      executables=[Executable('ELLE.py', base=base, icon='Customization.ico')],
-      target='cx_Freeze')
+      description='',
+      options={'build_exe': {'packages': ['os', 'pathlib', 'reportlab', 'sys'], 'include_files': ['Iconka-Cat-Halloween-Cat-ghost.ico']}},
+      executables=[Executable('BARCODEKS.py', base=base, icon='Iconka-Cat-Halloween-Cat-ghost.ico')])
+
 
 #python setup.py build

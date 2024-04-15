@@ -1,16 +1,18 @@
 import os
 from pathlib import Path
-
 from reportlab.graphics import renderPDF
 from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import landscape, A4
 from reportlab.graphics.barcode import eanbc
 from reportlab.graphics.shapes import Drawing
 from reportlab.lib.units import mm
 
 
 def createBarCodes(value, count):
-    desktop_path = Path(os.path.expanduser("~/Desktop"))
+    desktop_path = Path(os.path.expanduser("~/Desktop/barcodeks"))
+
+    if not os.path.exists(desktop_path):
+        os.makedirs(desktop_path)
+
     file_path = desktop_path / f"{count}_{value}.pdf" # путь для сохранения
     c = canvas.Canvas(str(file_path), pagesize=(37 * mm, 28 * mm))
     barcode_eanbc = eanbc.Ean13BarcodeWidget(value)
@@ -22,14 +24,25 @@ def createBarCodes(value, count):
 
 def plays_app(barcode_data):
     data_spl = barcode_data.strip().split('\n')
-    count = 1
+    count = 0
+    final = 0
     for code in data_spl:
-        createBarCodes(code, f'{count:003}')
+        try:
+            createBarCodes(code, f'{count:003}')
+            print(f'Код {code} успешно сгенерирован')
+            final += 1
+        except:
+            print(f'Произошла ошибка генерации кода {code}')
         count += 1
+    print(f'Кодов сгенерировано {final} из {count}')
+    input('Нажмите любую кнопку для выхода или закройте окно..')
 
+try:
+    with open('BKS.txt', 'r', encoding='utf-8') as file:
+        date = file.read()
+        plays_app(date)
+except:
+    print('Текстовый файл BKS.txt не найден или пустой')
+    input('')
 
-date = '''
-4820218797921
-4820218797983
-'''
-plays_app(date)
+# pyinstaller -F -i C:\Users\gorea\PycharmProjects\pythonProject5\Iconka-Cat-Halloween-Cat-ghost.ico BARCODEKS.py

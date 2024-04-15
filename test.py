@@ -118,23 +118,29 @@ import os
 # #     destination_filepath = os.path.join(path2, new_filename)
 # #     shutil.copy(source_filepath, destination_filepath)
 
-def search(m):
-    tum = 0
-    temp = ""
-    temp_name = ""
-    my_list = []
-    lcl = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-    for i in m:
-        for j in i:
-            if any(nums in j for nums in lcl):
-                if tum == 2:
-                    temp = ""
-                temp += j
-                tum = 1
-            else:
-                tum = 2
-        if len(temp) == 0:
-            temp += "!"
-        temp_name = f"{temp}_{i}"
-        my_list.append(temp_name)
-    return my_list
+# def search(m):
+#     tum = 0
+#     temp = ""
+#     temp_name = ""
+#     my_list = []
+#     lcl = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+#     for i in m:
+#         for j in i:
+#             if any(nums in j for nums in lcl):
+#                 if tum == 2:
+#                     temp = ""
+#                 temp += j
+#                 tum = 1
+#             else:
+#                 tum = 2
+#         if len(temp) == 0:
+#             temp += "!"
+#         temp_name = f"{temp}_{i}"
+#         my_list.append(temp_name)
+#     return my_list
+
+a = ''
+for i in range(1, 100):
+    a += str(i)
+
+print(a)
