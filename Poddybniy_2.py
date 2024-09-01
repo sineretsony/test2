@@ -1,11 +1,30 @@
 import os
 import tkinter as tk
 from tkinter import filedialog
+from rapidfuzz import fuzz
+import re
 
 window = tk.Tk()
 window.geometry('250x250')
 
 data_dict = {}
+
+
+def has_different_numbers(input_str, data_dict):
+    for key, value in data_dict.items():
+        similarity = fuzz.ratio(input_str, key)
+        numbers1 = re.findall(r'\d+', input_str)
+        numbers2 = re.findall(r'\d+', key)
+
+        # Проверяем, что схожесть достаточная и значение не равно 0
+        if similarity >= 95 and value != 0:
+            # Если цифры различаются, возвращаем False
+            if numbers1 != numbers2:
+                return False
+            # Если цифры совпадают и схожесть достаточная, возвращаем True
+            return True
+    # Если ни одно условие не подошло, возвращаем False
+    return False
 
 
 def print_message(message):
@@ -41,22 +60,23 @@ def play_button_clicked():
 def process_files(input_folder_path, output_folder_path):
     if not os.path.exists(output_folder_path):
         os.makedirs(output_folder_path)
+    counter = 0
 
     for filename in os.listdir(input_folder_path):
         input_path = os.path.join(input_folder_path, filename)
         output_path = os.path.join(output_folder_path, filename)
         file_name, file_ext = os.path.splitext(filename)
         file_name = file_name.upper()
-        if file_name in data_dict and data_dict[file_name] != 0:
+        if has_different_numbers(file_name, data_dict):
             new_file_name = str(
                 data_dict[file_name]) + '_' + file_name + file_ext
             output_path = os.path.join(output_folder_path, new_file_name)
-            with open(input_path, 'rb') as input_file, open(output_path,
-                                                            'wb') as output_file:
+            with open(input_path, 'rb') as input_file, open(output_path, 'wb') as output_file:
                 output_file.write(input_file.read())
+                counter += 1
 
     print_message("Готово")
-    print_message("Кол-во макетов: " + str(len(data_dict)))
+    print_message(f"Кол-во макетов: {counter} из {str(len(data_dict))}")
     print_message("Сумма колличества: " + str(sum(data_dict.values())))
 
 
@@ -100,3 +120,5 @@ file_label.pack()
 output_text = tk.Text(window, height=8, width=30)
 output_text.pack()
 window.mainloop()
+
+# v 2.1

@@ -44,6 +44,7 @@
 # dwg.save()
 #
 import os
+import random
 
 
 # filename = r'C:\Users\gorea\Desktop\Новая папка\7878.txt'
@@ -139,8 +140,30 @@ import os
 #         my_list.append(temp_name)
 #     return my_list
 
-a = ''
-for i in range(1, 100):
-    a += str(i)
 
-print(a)
+from rapidfuzz import fuzz
+import re
+
+# Функция для проверки различий в цифрах
+def has_different_numbers(str1, str2):
+    numbers1 = re.findall(r'\d+', str1)
+    numbers2 = re.findall(r'\d+', str2)
+    return numbers1 != numbers2
+
+# Ваши строки
+str1 = "101_69 Chill Line 0,06 кг, шт"
+str2 = "101_69 Chill Line 0,04 кг, шт"
+
+# Проверка на различие в цифрах
+if has_different_numbers(str1, str2):
+    print("Цифры в строках различаются, это не ок.")
+else:
+    # Вычисление процентной схожести
+    similarity = fuzz.ratio(str1, str2)
+
+    # Условие проверки
+    if similarity >= 95:
+        print(f"Строки похожи на {similarity}%, это считается ок.")
+    else:
+        print(f"Строки похожи на {similarity}%, это не ок.")
+
